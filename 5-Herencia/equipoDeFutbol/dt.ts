@@ -21,3 +21,44 @@ export class Dt extends Persona{
 }
 
 
+
+
+
+interface OperacionesBancarias {
+    depositar(cantidad: number): void;
+    retirar(cantidad: number): void;
+  }
+  
+  abstract class CuentaBancaria implements OperacionesBancarias {
+    saldo: number = 0;
+  
+    depositar(cantidad: number): void {
+      this.saldo += cantidad;
+      console.log(`Depositaste $${cantidad}. Saldo actual: $${this.saldo}`);
+    }
+  
+    retirar(cantidad: number): void {
+      if (this.saldo >= cantidad) {
+        this.saldo -= cantidad;
+        console.log(`Retiraste $${cantidad}. Saldo actual: $${this.saldo}`);
+      } else {
+        console.log("Saldo insuficiente");
+      }
+    }
+  
+    abstract tipoDeCuenta(): string;
+  }
+  
+  class CuentaCorriente extends CuentaBancaria {
+    tipoDeCuenta(): string {
+      return "Cuenta Corriente";
+    }
+  }
+  
+  class CuentaDeAhorros extends CuentaBancaria {
+    tipoDeCuenta(): string {
+      return "Cuenta de Ahorros";
+    }
+  }
+  
+  
